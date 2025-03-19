@@ -36,6 +36,64 @@ export default {
 
 ```
 
+If you have custom styles you can set them up in your tailwind.config.ts
+
+```ts
+import type { Config } from "tailwindcss";
+
+export default {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./sanity/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      screens: {
+        xs: "475px",
+      },
+      colors: {
+        primary: {
+          "100": "#FFE8F0",
+          DEFAULT: "EE2869"
+        },
+        secondary: "#FBE843",
+        black: {
+          "100": "#333333",
+          "200": "#141413",
+          "300": "#7D8087"
+        },
+        white:{
+          "100": "#F7F7F7",
+          DEFAULT: "#FFFFFF"
+        },
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
+    },
+    fontFamily: {
+      "work-sans": ["var(--font-work-sans)"]
+    },
+    borderRadius: {
+      lg: "var(--radius)",
+      md: "calc(var(--radius) - 2px)",
+      sm: "calc(var(--radius) = 4px)"
+    }
+  },
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+} satisfies Config;
+```
+
+Installing ShadCN:
+
+```sh
+npx shadcn@latest init
+```
+You'd also get a prompt to choose the Shadcn style you want and also a base color.
+
+## GitHub auth using next-auth
+
 Setup AUTH_SECRET
 
 ```sh
@@ -46,8 +104,6 @@ It creates a new `env.local` file with your auth secret.
 
 Configure Next Auth:
 create the `Auth.js` config file and object. This is where you can control the behaviour of the library and specify custom authentication logic, adapters, etc. We recommend all frameworks to create an auth.ts file in the project.
-
-## GitHub auth using next-auth
 
 In the root of your project create /auth.ts
 
@@ -62,7 +118,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 Add a Handler under /app/api/auth/[...nextauth]/route.ts:
 
 ```ts
-
+import { handlers } from "@/auth" // Referring to the auth.ts we just created
+export const { GET, POST } = handlers
 ```
 
 Go to GitHub
@@ -244,4 +301,4 @@ export default function RootLayout({
 }
 ```
 
-###
+### 

@@ -1,8 +1,17 @@
 import React from 'react'
+import Hero from "../components/Hero"
+import SearchForm from "../components/SearchForm"
 
-const HomePage = () => {
+const HomePage = async ({ searchParams }: {
+searchParams: Promise<{ query?: string }>
+}) => {
+  const query =  (await searchParams).query
   return (
-    <div>HomePage</div>
+    <>
+      <SearchForm query={query} />
+      <Hero />
+      
+    </>
   )
 }
 
