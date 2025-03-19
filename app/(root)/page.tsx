@@ -1,6 +1,6 @@
 import React from 'react'
-import Hero from "../components/Hero"
-import SearchForm from "../components/SearchForm"
+import Hero from "../../components/Hero"
+import SearchForm from "../../components/SearchForm"
 
 const HomePage = async ({ searchParams }: {
 searchParams: Promise<{ query?: string }>
@@ -10,6 +10,7 @@ searchParams: Promise<{ query?: string }>
     <>
       <SearchForm query={query} />
       <Hero />
+      
       
     </>
   )
