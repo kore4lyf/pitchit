@@ -3,8 +3,23 @@
 @tailwind utilities;
 
 @layer utilities {
+  .card_grid {
+    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5
+  }
+  .card_grid_sm {
+    @apply grid sm:grid-cols-2 gap-5
+  }
   .heading {
-    @apply uppercase text-3xl font-work-sans font-extrabold text-black-200 sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px];
+    @apply uppercase text-3xl font-work-sans font-extrabold text-black-200 sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px]
+  }
+  .hero_container {
+    @apply width_90pct grid grid-cols-1 md:grid-cols-2 md:gap-5 xl:gap-0 mx-auto items-center h-[600px]
+  }
+  .hero_title {
+    @apply uppercase min-w-[12ch] text-3xl font-work-sans font-extrabold text-black-200 text-[54px] md:text-[64px] xl:text-[64px] leading-[64px]
+  }
+  .rounded_full {
+    border-radius: 100%;
   }
   .sub_heading {
     @apply text-gray-700
@@ -34,7 +49,8 @@
 
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 154 62% 44%;
+    /* 222.2 47.4% 11.2%; */
 
     --primary-foreground: 210 40% 98%;
 
@@ -132,5 +148,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (min-width: 1000px) and (min-height: 400px) {
+  .hero_container {
+    @apply h-screen
+  }
+}
+
+@media (orientation: landscape) {
+  .hero_container {
+    @apply h-screen
   }
 }
