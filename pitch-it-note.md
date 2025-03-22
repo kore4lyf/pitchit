@@ -301,4 +301,18 @@ export default function RootLayout({
 }
 ```
 
-### 
+### Using sanity
+
+create a new project, copy the code to initialize it your local directory.
+
+#### using markdown datatype in sanity
+
+```sh
+npm i sanity-plugin-markdown
+```
+
+add `markdownSchema()` to plugins at `sanity.config.ts`, import from `import { markdownSchema} from 'sanity-plugin-markdown'`.
+
+The markdown plugin also requires a style
+Go to `app/layout.tsx` then `import 'easymde/dist/easymde.min.css'`
+
