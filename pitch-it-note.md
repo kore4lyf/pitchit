@@ -316,3 +316,30 @@ add `markdownSchema()` to plugins at `sanity.config.ts`, import from `import { m
 The markdown plugin also requires a style
 Go to `app/layout.tsx` then `import 'easymde/dist/easymde.min.css'`
 
+## Markdown Parser
+
+```sh
+npm i markdown-it
+
+# if you are using typescript
+npm i -D @types/markdown-it
+```
+
+### Setting up parsed HTML
+
+```js
+import MarkdownIt from "markdown-it"
+
+const page = async ({ params }: { params: Promise<{ id: string }>}) => {
+
+  const parsedContent = md.render(pitch) || ""
+
+  return (
+    <>
+      { parsedContent ? <article className="prose" dangerouslySetInnerHTML={{ __html: parsedContent }} /> : <span> No details provide </span> }
+    </>
+  )
+}
+```
+
+Since you are using easymde, set `prose` className to your compiled Markdown.

@@ -17,9 +17,9 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
 
   return (
     <li>
-      <Card className="w-full md:max-w-[380px] md:min-w-[280px]rounded-md rounded-lg">
+      <Card className="w-full md:max-w-[380px] md:min-w-[280px] rounded-lg">
         <CardHeader>
-          <Badge className="w-fit mb-2" variant="secondary">{category?.toLowerCase()}</Badge>
+          <Badge className="w-fit mb-2" variant="secondary">{category?.toUpperCase()}</Badge>
           <div className="flex gap-3 items-center">
             <Link href={`/user/${author?._id}`}>
               <Avatar>

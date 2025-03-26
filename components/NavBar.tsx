@@ -27,7 +27,7 @@ const NavBar = async () => {
                 }}>
                   <button type="submit"> Logout </button>
                 </form>
-
+                {console.log(session)}
                 <Link href={`/user/${session?.id}`}>
                   <span> {session?.user?.name} </span>
                 </Link>
