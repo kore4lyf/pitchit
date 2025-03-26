@@ -1,88 +1,43 @@
 import React from 'react'
 import Hero from "../../components/Hero"
 import SearchForm from "../../components/SearchForm"
-import StartupCard from "@/components/StartupCard"
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard"
+import { STARTUP_QUERY } from "@/sanity/lib/queries"
+import { client } from "@/sanity/lib/client"
+import { sanityFetch, SanityLive } from "@/sanity/lib/live"
+import { STARTUP_QUERYResult, Startup_Query } from "@/sanity.types-copy"
+
+let cachedPosts: STARTUP_QUERYResult = []
+
+async function fetchPostsWithCache(params: { search: string | null }): Promise<STARTUP_QUERYResult | undefined> {
+  try {
+    // const posts: STARTUP_QUERYResult = await client.fetch(STARTUP_QUERY)
+    let state = false
+    const { data: posts }: { data: STARTUP_QUERYResult } = await sanityFetch({query: STARTUP_QUERY, params}) // Live update fetch
+    
+    if(!posts && cachedPosts.length === 0) throw new Error("Couldn't fetch data")
+
+    if(posts) {
+      cachedPosts = posts
+    }
+    
+    return posts
+  } catch(error) {
+    console.log("Error Fetching Data: ", error)
+    if(cachedPosts.length !== 0)  return cachedPosts
+  } 
+}
 
 const HomePage = async ({ searchParams }: {
-searchParams: Promise<{ query?: string }>
-}) => {
+  searchParams: Promise<{ query?: string }> }) => {
+   
   const query =  (await searchParams).query
+  const params = { search: query || null }
+  
 
-  interface PostContent {
-    _createdAt: string,
-    views: 55,
-    author: { _id: number, name: string },
-    _id: number,
-    description: string,
-    image: string,
-    category: string,
-    title: string
-  }
-
-  const posts: PostContent[] = [
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 1, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 2, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 3, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 4, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 5, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-    {
-      _createdAt: new Date().toDateString().slice(4),
-      views: 55,
-      author: { _id: 1, name: "Korede" },
-      _id: 6, 
-      description: "Here is a description",
-      image: "/images/pitchit-hero.png",
-      category: "CookBook",
-      title: "AI Masterclass"
-    },
-  ]
-
-  return (
+  const posts : STARTUP_QUERYResult | undefined = await fetchPostsWithCache(params)
+ 
+  return ( 
     <>
       <Hero query={query} />
       
@@ -92,15 +47,16 @@ searchParams: Promise<{ query?: string }>
         </p>
         
         <ul className="list-none mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {posts?.length > 0 ? (
-            posts.map((post: PostContent, index: number) => (
-              <StartupCard key={post?._id} post={post} />
+          {posts !== undefined && posts?.length > 0 ? (
+            posts.map((post: Startup_Query) => (
+              <StartupCard key={post?._id} post={post as StartupTypeCard} />
             ))
-          ): (
-            <p className="no-results">No startups found</p>
+          ) : (
+            <p className= "no-results">No startups found</p>
           )}
         </ul>
       </section>
+      <SanityLive/>
     </>
   )
 }
