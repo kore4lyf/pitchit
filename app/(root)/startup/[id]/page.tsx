@@ -25,7 +25,6 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
   const { _id, title, _createdAt, views, description, category, image, pitch, author: {
     _id: authorId,
     name,
-    username,
     image: authorImage,
     bio
   }} = post
@@ -61,14 +60,14 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
             </div>
           </div>
 
-          <p>
+          <div>
             <div className="md:w-[600px] bg-gray-100 rounded-lg">
               <Image src={image} width={200} height={200} alt={`A description ${title}`} className="rounded-t-lg w-full" />
               <p className="m-4 p-2 pb-6">{description}</p>
             </div>
 
             { parsedContent ? <article className="prose font-work-sans" dangerouslySetInnerHTML={{ __html: parsedContent }} /> : <span> No details provide </span> }
-          </p>
+          </div>
         </div>
       </section>
 
