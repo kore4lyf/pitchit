@@ -6,13 +6,14 @@ import { STARTUP_QUERY } from "@/sanity/lib/queries"
 import { client } from "@/sanity/lib/client"
 import { sanityFetch, SanityLive } from "@/sanity/lib/live"
 import { STARTUP_QUERYResult, Startup_Query } from "@/sanity.types-copy"
+import { auth } from "@/auth"
 
 let cachedPosts: STARTUP_QUERYResult = []
 
 async function fetchPostsWithCache(params: { search: string | null }): Promise<STARTUP_QUERYResult | undefined> {
   try {
     // const posts: STARTUP_QUERYResult = await client.fetch(STARTUP_QUERY)
-    let state = false
+
     const { data: posts }: { data: STARTUP_QUERYResult } = await sanityFetch({query: STARTUP_QUERY, params}) // Live update fetch
     
     if(!posts && cachedPosts.length === 0) throw new Error("Couldn't fetch data")
@@ -33,6 +34,9 @@ const HomePage = async ({ searchParams }: {
    
   const query =  (await searchParams).query
   const params = { search: query || null }
+
+  const session = await auth()
+  console.log(session?.id)
   
 
   const posts : STARTUP_QUERYResult | undefined = await fetchPostsWithCache(params)

@@ -33,7 +33,7 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
 
   return (
     <>
-      <section className="width_90pct py-4">
+      <section className="width_90pct py-5">
         <div className="grid gap-4">
           <div> <Badge variant="secondary">{category}</Badge> </div>
           <h1 className="text-5xl font-bold">{post.title}</h1>
