@@ -52,12 +52,6 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
               <Clock  className="size-4"/>
               <span>{formatDate(_createdAt)}</span>
             </p>
-
-            <span>|</span>
-            <div className="flex gap-1 items-center">
-              <EyeIcon className="size-4 text-gray-500"/>
-              <span className="text-sm">{views}</span>
-            </div>
           </div>
 
           <div>

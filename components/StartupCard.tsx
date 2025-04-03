@@ -41,7 +41,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
           </div>
         </CardHeader>
         <CardContent>
-          <p>{description}</p>
+          <p className="line-clamp-3">{description}</p>
           <br/>
           {image && <Image className="rounded-md object-cover h-[200px] w-full" src={image} width={200} height={200} alt={`A photo of ${title} submitted {name}`}/>}
         </CardContent>
