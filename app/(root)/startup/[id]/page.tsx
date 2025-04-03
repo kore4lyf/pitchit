@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import View from "@/components/View"
 
-export const experimental_ppr = true
+// export const experimental_ppr = true
 
 const md = MarkdownIt()
 
@@ -81,9 +81,9 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
         </div>
       </section> */}
 
-      <Suspense fallback={<Skeleton className="w-fit" />}>
+      {/* <Suspense fallback={<Skeleton className="w-fit" />}>
        <View id={id} />
-      </Suspense>
+      </Suspense> */}
     </>
   )
 }
