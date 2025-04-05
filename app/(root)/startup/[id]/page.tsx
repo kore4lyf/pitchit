@@ -13,6 +13,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import View from "@/components/View"
 import Link from "next/link"
 import StartupCard, { StartupTypeCard } from "@/components/StartupCard"
+import { Startup_Query } from "@/sanity.types-copy"
+import { STARTUP_QUERY } from '../../../../sanity/lib/queries';
 
 export const experimental_ppr = true
 
@@ -32,9 +34,9 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
     _id: authorId,
     name,
     image: authorImage,
-  }} = post
+  }}: STARTUP_QUERY = post
 
-  const parsedContent = md.render(pitch) || ""
+  const parsedContent = md.render(pitch || "")
 
   return (
     <>
@@ -72,11 +74,11 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
         </div>
       </section>
 
-      <section className="grid gap-6">
-        <h3 className="text-2xl uppercase">Recommended Posts</h3>
+      <section className="grid gap-6 width_90pct py-5">
+        <h3 className="text-3xl uppercase font-bold">Recommended Startups</h3>
         <ul className="grid list-style-none">
           {editorPosts?.length > 0 && 
-            editorPosts.map((post: StartupTypeCard) => (
+            editorPosts.map((post: Startup_Query) => (
               <StartupCard key={post._id} post={post}/>
         ))}
         </ul>

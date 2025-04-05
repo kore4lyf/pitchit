@@ -12,13 +12,13 @@ const UserStartups = async ({ id }: { id: string }) => {
   return (
     <>
       {startups.length > 0 ?
-        startups.map((startup: StartupTypeCard) => 
+        startups.map((startup) => 
         <StartupCard key={startup._id} post={startup} />):
         (<div className="grid gap-5 mx-auto">
-          <Image src="/images/no-pitch.png" alt="No image included by the user"/>
-          <p>No startups yet</p>
+           <Image src="/images/no-pitch.png" alt="No image included by the user"/>
+           <p>No startups yet</p>
           </div>
-          )}
+        )}
     </>
   )
 }

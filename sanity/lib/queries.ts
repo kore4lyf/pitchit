@@ -73,7 +73,7 @@ export const STARTUP_BY_AUTHOR_QUERY = defineQuery(`
 `)
 
 export const PLAYLIST_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "playlist" && slug.current == $slug][0] | order(_createdAt desc) {
+  *[_type == "playlist" && slug.current == $slug] | order(_createdAt asc) {
     _id,
     title,
     slug,
@@ -90,5 +90,5 @@ export const PLAYLIST_BY_SLUG_QUERY = defineQuery(`
       category,
       image
     },
-  }
+  }[0]
 `)

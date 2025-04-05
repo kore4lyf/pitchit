@@ -9,10 +9,11 @@ import { AvatarImage } from "./ui/avatar"
 import Image from "next/image"
 import { formatDate } from "@/lib/utils"
 import { Author, Startup } from "@/sanity.types"
+import { Startup_Query } from "@/sanity.types-copy"
 
 export type StartupTypeCard = Omit<Startup, "author"> & { author: Author }
 
-const StartupCard = ({ post }: { post: StartupTypeCard }) => {
+const StartupCard = ({ post }: { post: Startup_Query }) => {
   const { _createdAt, views, title, category, author, _id, image, description } = post
 
   return (
@@ -23,8 +24,8 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
           <div className="flex gap-3 items-center">
             <Link href={`/user/${author?._id}`}>
               <Avatar>
-                <AvatarImage src={author?.image} className="w-10 h-10 rounded_full outline outline-2 outline-gray-300 hover:outline-customTeal outline-offset-1"/>
-                <AvatarFallback className="border rounded_full p-2">{author.name !== undefined && author.name.slice(0,2).toUpperCase()}</AvatarFallback>
+                <AvatarImage src={author?.image || "/images/no-image.png"} className="w-10 h-10 rounded_full outline outline-2 outline-gray-300 hover:outline-customTeal outline-offset-1"/>
+                <AvatarFallback className="border rounded_full p-2">{author?.name !== undefined && author.name?.slice(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
             </Link>
             <div className="flex-1">

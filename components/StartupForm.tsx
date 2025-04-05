@@ -9,7 +9,6 @@ import { useFormStatus } from "react-dom"
 import { formSchema } from "@/lib/validation"
 import { z } from "zod"
 import { useToast } from "@/hooks/use-toast"
-import { redirect } from "next/navigation"
 import { createPitch } from "@/lib/actions"
 import { useRouter } from "next/navigation"
 
@@ -20,14 +19,8 @@ const StartupForm = () => {
   const [ pitch, setPitch ] = useState("")
   const { toast } = useToast()
 
-  toast({
-    description: "Your startup pitch has been created successfully",
-    variant: "success"
-  })
-
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
-    console.log("Pitch: ", pitch)
-    
+
     try {
       const formValues = {
         title: formData.get("title") as string,
