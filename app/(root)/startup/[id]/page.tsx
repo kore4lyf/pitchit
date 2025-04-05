@@ -1,32 +1,37 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
-import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries"
+import { PLAYLIST_BY_SLUG_QUERY, STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries"
 import { notFound } from "next/navigation"
 import React, { Suspense } from 'react'
 import { formatDate } from '@/lib/utils';
-import { Clock, EyeIcon } from "lucide-react"
+import { Clock } from "lucide-react"
 import Image from "next/image"
 import MarkdownIt from "markdown-it"
 import { Card, CardContent, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import View from "@/components/View"
+import Link from "next/link"
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard"
 
-// export const experimental_ppr = true
+export const experimental_ppr = true
 
 const md = MarkdownIt()
 
 const page = async ({ params }: { params: Promise<{ id: string }>}) => {
   const id  = (await params).id
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id })
+  const [post, {select: editorPosts}] = await Promise.all([
+    client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "recommendations"})
+  ])
+
   if(!post) return notFound()
 
-  const { _id, title, _createdAt, views, description, category, image, pitch, author: {
+  const {title, _createdAt, description, category, image, pitch, author: {
     _id: authorId,
     name,
     image: authorImage,
-    bio
   }} = post
 
   const parsedContent = md.render(pitch) || ""
@@ -35,17 +40,17 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
     <>
       <section className="width_90pct py-5">
         <div className="grid gap-4">
-          <div> <Badge variant="secondary">{category}</Badge> </div>
-          <h1 className="text-5xl font-bold">{post.title}</h1>
+          <div> <Badge variant="secondary">{category && category.toUpperCase()}</Badge> </div>
+          <h1 className="text-4xl font-bold uppercase font-work-sans">{post.title}</h1>
           
           <div className="text-gray-500 flex gap-4 items-center">
-            <p className="flex gap-1">
+            <Link href={authorId} className="flex gap-2">
               <Avatar className="w-fit h-fit">
                 <AvatarImage src={authorImage} className="w-7 h-7 rounded_full outline outline-2 outline-gray-300 hover:outline-customTeal outline-offset-1"/>
                 <AvatarFallback className="border rounded_full p-2 w-7 h-7">{name !== undefined && name.slice(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
               <span className="text-black-200 font-bold">{name}</span>
-            </p> 
+            </Link> 
 
             <span>|</span>
             <p className="flex gap-2 items-center">
@@ -55,35 +60,31 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
           </div>
 
           <div>
-            <div className="md:w-[600px] bg-gray-100 rounded-lg">
-              <Image src={image} width={200} height={200} alt={`A description ${title}`} className="rounded-t-lg w-full" />
+            <div className="grid md:w-[600px] bg-green-100 rounded-lg mt-2 overflow-hidden">
+              <Image src={image || "/images/no-image.png"} width={200} height={200} alt={`A description ${title}`} className="rounded-t-lg w-full" />
               <p className="m-4 p-2 pb-6">{description}</p>
             </div>
 
-            { parsedContent ? <article className="prose font-work-sans" dangerouslySetInnerHTML={{ __html: parsedContent }} /> : <span> No details provide </span> }
+            <div className=" pt-6">
+            { parsedContent ? <article className="max-w-[800px] prose font-work-sans" dangerouslySetInnerHTML={{ __html: parsedContent }} /> : <span> No details provide </span> }
+            </div>
           </div>
         </div>
       </section>
 
-      {/* <section className="grid gap-6">
-        <h3 className="text-2xl">Recommended Posts</h3>
-        <div className="grid">
-          <Card>
-            <CardContent className="grid gl">
-              <Image src={%} width={200} height={200} alt={`Description of ${%}`} />
-              <div><Badge variant="secondary">{%}</Badge></div>
-              <p className="text-xl font-bold">{%}</p>
-            </CardContent>
-            <div className="flex gap-1">
-              <Clock  className="size-4"/> {%}
-            </div>
-          </Card>
-        </div>
-      </section> */}
+      <section className="grid gap-6">
+        <h3 className="text-2xl uppercase">Recommended Posts</h3>
+        <ul className="grid list-style-none">
+          {editorPosts?.length > 0 && 
+            editorPosts.map((post: StartupTypeCard) => (
+              <StartupCard key={post._id} post={post}/>
+        ))}
+        </ul>
+      </section>
 
-      {/* <Suspense fallback={<Skeleton className="w-fit" />}>
-       <View id={id} />
-      </Suspense> */}
+      <Suspense fallback={<Skeleton className="w-fit" />}>
+        <View id={id} />
+      </Suspense>
     </>
   )
 }

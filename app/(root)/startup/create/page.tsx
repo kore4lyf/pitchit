@@ -10,14 +10,12 @@ const page = async () => {
 
   return (
     <>
-    <section className="width_90pct py-5">
-      <div className="grid gap-4">
-        <h1 className="text-5xl font-bold">Startup Details</h1>
-        <StartupForm/>
-      </div>
-    </section>
-    
-      
+      <section className="width_90pct py-5">
+        <div className="grid gap-4">
+          <h1 className="text-4xl font-bold uppercase">Startup Details</h1>
+          <StartupForm/>
+        </div>
+      </section>
     </>
   )
 }

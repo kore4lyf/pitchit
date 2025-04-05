@@ -36,7 +36,7 @@ export const startup = defineType({
     }),
     defineField({
       name: "image",
-      type: "url",
+      type: "text",
       validation: Rule => Rule.required()
     }),
     defineField({

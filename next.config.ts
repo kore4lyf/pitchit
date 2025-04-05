@@ -15,10 +15,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // experimental: {
-  //   ppr: "incremental",
-  //   after: true
-  // },
+  experimental: {
+    ppr: "incremental",
+    after: true
+  },
   devIndicators: { // This will help us visualize what is happening with PPR
     appIsrStatus: true,
     buildActivity: true,

@@ -20,6 +20,11 @@ const StartupForm = () => {
   const [ pitch, setPitch ] = useState("")
   const { toast } = useToast()
 
+  toast({
+    description: "Your startup pitch has been created successfully",
+    variant: "success"
+  })
+
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     console.log("Pitch: ", pitch)
     

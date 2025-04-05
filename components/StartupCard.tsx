@@ -43,7 +43,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         <CardContent>
           <p className="line-clamp-3">{description}</p>
           <br/>
-          {image && <Image className="rounded-md object-cover h-[200px] w-full" src={image} width={200} height={200} alt={`A photo of ${title} submitted {name}`}/>}
+          <Image className="rounded-md object-cover h-[200px] w-full" src={image || "/images/no-image.png"} width={200} height={200} alt={`A photo of ${title} submitted {name}`}/>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button asChild>
