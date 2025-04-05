@@ -7,8 +7,8 @@ export function Footer() {
 
   return (
     <footer className="w-full border-t border-gray-100 py-8 mt-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto width_90pct">
+        <div className="grid grid-cols-1 md:grid-cols-3 space-between gap-8">
 
           <div className="space-y-4">
             <Link href="/">
@@ -63,7 +63,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-gray-100">
-          <p className="text-gray-500 text-sm">© {currentYear} Pit. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">© {currentYear} Pitchit. All rights reserved.</p>
           <p className="text-gray-500 text-sm flex items-center mt-4 md:mt-0">
             Made with <Heart size={16} className="mx-1 text-red-500" /> by KoRe
           </p>
