@@ -344,9 +344,8 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
 
 Since you are using easymde, set `prose` className to your compiled Markdown.
 
-## Mark Down Edior
+## Mark Down Editor
 
 ```sh
 npm i @uiw/react-md-editor
 ```
-checkout
