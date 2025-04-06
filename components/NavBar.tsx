@@ -34,7 +34,7 @@ const NavBar = async () => {
                   </PopoverTrigger>
                   <PopoverContent className="w-[180px] p-0 mr-3">
                     <ul className="font-work-sans">
-                      <li className="border border-red-500 grid px-4 py-2 hover:bg-opacity-30 hover:bg-gray-100">
+                      <li className="grid px-4 py-2 hover:bg-opacity-30 hover:bg-gray-100">
                         <Link href={`/user/${session?.id}`} className="flex items-center"> Profile </Link>
                       </li>
 
@@ -45,7 +45,7 @@ const NavBar = async () => {
                         "use server"
                         await signOut({redirectTo: "/"})
                       }}>
-                          <button type="submit" className="w-full border border-red-500 flex gap-2 items-center"> <LogOut className="size-4 text-red-600" /> Logout </button>
+                          <button type="submit" className="w-full flex gap-2 items-center"> <LogOut className="size-4 text-red-600" /> Logout </button>
                         </form>
                       </li>
                     </ul>
