@@ -5,16 +5,13 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { Button } from "./ui/button"
 import MDEditor from "@uiw/react-md-editor"
-import { useFormStatus } from "react-dom"
 import { formSchema } from "@/lib/validation"
 import { z } from "zod"
 import { useToast } from "@/hooks/use-toast"
-import { createPitch } from "@/lib/actions"
-import { useRouter } from "next/navigation"
+import { createPitch, redirectTo } from "@/lib/actions"
 
 
 const StartupForm = () => {
-  const router = useRouter()
   const [ errors, setErrors ] = useState<Record<string,string>>({})
   const [ pitch, setPitch ] = useState("")
   const { toast } = useToast()
@@ -37,16 +34,12 @@ const StartupForm = () => {
 
       if(result.status == "SUCCESS") {
         toast({
-          description: "Your startup pitch has been created successfully"
+          description: "Your startup pitch has been created successfully",
+          variant: "success"
         })
 
-       router.push(`/startup/${result._id}`)
+       redirectTo(`/startup/${result._id}`)
       }
-
-      
-      toast({
-        description: "Your startup pitch has been created successfully"
-      })
       
       return result
 

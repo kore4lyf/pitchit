@@ -5,6 +5,7 @@ import { json } from "stream/consumers"
 import { getImageBase64, parseServerActionResponse } from "./utils"
 import slugify from "slugify"
 import { writeClient } from "@/sanity/lib/write-client"
+import { redirect } from "next/navigation"
 
 export const createPitch = async(state: any, form: FormData, pitch: string) => {
   const session = await auth()
@@ -52,4 +53,8 @@ export const createPitch = async(state: any, form: FormData, pitch: string) => {
       status: "ERROR"
     })
   }
+}
+
+export const redirectTo = (path: string) => {
+  redirect(path)
 }
