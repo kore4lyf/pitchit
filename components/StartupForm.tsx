@@ -55,12 +55,13 @@ const StartupForm = () => {
         })
 
         return {...prevState, error: "validation failed", status: "ERROR"}
+      } else {
+        toast({
+          description: "An unexpected error has occurred" + ` ${(error as unknown as string).toString()}`,
+          variant: "destructive"
+        })
       }
 
-      toast({
-        description: "An unexpected error has occurred" + ` ${(error as unknown as string).toString()}`,
-        variant: "destructive"
-      })
 
       return {
         ...prevState,

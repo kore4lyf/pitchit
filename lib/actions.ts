@@ -55,6 +55,6 @@ export const createPitch = async(state: any, form: FormData, pitch: string) => {
   }
 }
 
-export const redirectTo = (path: string) => {
-  redirect(path)
+export const redirectTo = async (path: string) => {
+  await redirect(path)
 }
