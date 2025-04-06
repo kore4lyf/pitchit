@@ -18,7 +18,7 @@ const View = async ({ id }: { id: string}) => {
 
   return (
     <div>
-      <div className="fixed bottom-5 right-3">
+      <div className="fixed bottom-15 right-3">
 
           <Ping />
         <p className="text-bold py-2 px-3 font-bold text-gray-800 bg-gray-100 rounded-lg">

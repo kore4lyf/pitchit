@@ -46,7 +46,7 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
           <h1 className="text-4xl font-bold uppercase font-work-sans">{post.title}</h1>
           
           <div className="text-gray-500 flex gap-4 items-center">
-            <Link href={authorId} className="flex gap-2">
+            <Link href={`/user/${authorId}`} className="flex gap-2 hover:text-primary">
               <Avatar className="w-fit h-fit">
                 <AvatarImage src={authorImage} className="w-7 h-7 rounded_full outline outline-2 outline-gray-300 hover:outline-customTeal outline-offset-1"/>
                 <AvatarFallback className="border rounded_full p-2 w-7 h-7">{name !== undefined && name.slice(0,2).toUpperCase()}</AvatarFallback>

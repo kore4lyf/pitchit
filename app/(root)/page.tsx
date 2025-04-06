@@ -7,13 +7,14 @@ import { sanityFetch, SanityLive } from "@/sanity/lib/live"
 import { STARTUP_QUERYResult, Startup_Query } from "@/sanity.types-copy"
 import { auth } from "@/auth"
 import { notFound } from "next/navigation"
+import Image from "next/image"
 
 
 async function fetchPosts(params: { search: string | null }): Promise<STARTUP_QUERYResult | undefined> {
   try {
-    // const posts: STARTUP_QUERYResult = await client.fetch(STARTUP_QUERY)
+    const posts: STARTUP_QUERYResult = await client.fetch(STARTUP_QUERY, params, { useCdn: false})
 
-    const { data: posts }: { data: STARTUP_QUERYResult } = await sanityFetch({query: STARTUP_QUERY, params}) // Live update fetch
+    // const { data: posts }: { data: STARTUP_QUERYResult } = await sanityFetch({query: STARTUP_QUERY, params}) // Live update fetch
     if(!posts) notFound()
 
     return posts
@@ -29,7 +30,6 @@ const HomePage = async ({ searchParams }: {
   const params = { search: query || null }
 
   const session = await auth()
-  console.log(session?.id)
   
 
   const posts : STARTUP_QUERYResult | undefined = await fetchPosts(params)
@@ -45,14 +45,19 @@ const HomePage = async ({ searchParams }: {
         </p>
         
         <ul className="list-none mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {posts !== undefined && posts?.length > 0 ? (
+          {(posts !== undefined || posts?.length > 0) && (
             posts.map((post: Startup_Query) => (
               <StartupCard key={post?._id} post={post} />
             ))
-          ) : (
-            <p>No startups found</p>
-          )}
+          )
+          }
         </ul>
+
+        { (posts === undefined || posts?.length === 0) &&
+        <div className="w-full flex flex-col items-center justify-end">
+          <Image className="w-[400px]" src="/images/no-pitch.png" alt="No image included by the user" width={400} height={400} />
+          <p className="text-2xl font-bold">No pitch found</p>
+        </div>}
       </section>
       <SanityLive/>
     </>

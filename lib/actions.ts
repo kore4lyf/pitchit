@@ -24,7 +24,7 @@ export const createPitch = async(state: any, form: FormData, pitch: string) => {
       title, 
       description,
       category,
-      image: link,
+      image: startupImage,
       slug: {
         _type: slug,
         current: slug

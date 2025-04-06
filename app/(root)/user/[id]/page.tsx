@@ -4,11 +4,10 @@ import { AUTHOR_BY_ID_QUERY } from "@/sanity/lib/queries"
 import { Github, Mail } from "lucide-react"
 import Image from "next/image"
 import { notFound, redirect } from "next/navigation"
-import React, { Suspense } from 'react'
+import React from 'react'
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import UserStartups from "@/components/UserStartups"
-import StartupCardSkeleton from "@/components/StartupCardSkeleton"
 
 const page = async ({ params }: { params: Promise<{ id: string }>}) => {
   const id = (await params).id
@@ -54,13 +53,7 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
           </Card>
 
           <h3 className="text-2xl mt-8 font-bold uppercase">Startups</h3>
-          
-          <ul className="list-none mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            
-            <Suspense fallback={<StartupCardSkeleton/>}>
-              <UserStartups id={id}/>
-            </Suspense>
-          </ul>
+          <UserStartups id={id}/>
       </section>
     </>
   )
