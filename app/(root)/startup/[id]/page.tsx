@@ -34,7 +34,7 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
     _id: authorId,
     name,
     image: authorImage,
-  }}: STARTUP_QUERY = post
+  }} = post
 
   const parsedContent = md.render(pitch || "")
 
