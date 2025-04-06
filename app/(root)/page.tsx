@@ -54,7 +54,7 @@ const HomePage = async ({ searchParams }: {
         <ul className="list-none mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {posts !== undefined && posts?.length > 0 ? (
             posts.map((post: Startup_Query) => (
-              <StartupCard key={post?._id} post={post as StartupTypeCard} />
+              <StartupCard key={post?._id} post={post} />
             ))
           ) : (
             <p>No startups found</p>
