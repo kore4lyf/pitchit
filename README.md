@@ -14,31 +14,35 @@ Pitch It is a web platform designed to connect startups seeking funding with inv
 * **Sanity:** Headless CMS for managing and delivering content.
 * **Sentry:** Error tracking and performance monitoring.
 
+## Live Demo
+
+* [https://pitchit-eight.vercel.app/](https://pitchit-eight.vercel.app/)
+
 ## Setup and Usage
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
 
     ```bash
     git clone [https://github.com/kore4lyf/pitchit](https://github.com/kore4lyf/pitchit)
     ```
 
-2. **Install dependencies:**
+2.  **Install dependencies:**
 
     ```bash
     npm i
     ```
 
-3. **Run the project:**
+3.  **Run the project:**
 
     ```bash
     npm run dev
     ```
 
-4. **Configuration:**
+4.  **Configuration:**
 
-    * Set the following environment variables:
+    * Set the following environment variables in your `.env.local` file:
 
-        ```bash
+        ```
         AUTH_SECRET=
         AUTH_GITHUB_ID=
         AUTH_GITHUB_SECRET=
@@ -49,33 +53,36 @@ Pitch It is a web platform designed to connect startups seeking funding with inv
         NEXT_PUBLIC_SENTRY_DSN=
         ```
 
-    * Please make sure you have node.js installed on your computer.
+5.  **Usage:**
 
-5. **User Roles and Permissions:**
+    * Users can log in with their GitHub account.
+    * Logged-in users can submit a pitch.
 
-    * Only standard users are supported. Users log in with GitHub and can submit pitches.
+6.  **User Roles and Permissions:**
 
-6. **Usage:**
-
-    * Users log in with their GitHub account.
-    * Logged-in users can submit pitch information.
+    * This application currently supports a single user role.
 
 ## Contribution and Support
 
-* **Contributions:** Contributions are not accepted at this time.
-* **Coding Standards:** No specific coding standards or guidelines are provided.
-* **Bug Reports:** Use the Sentry feedback button, which is configured for bug reporting.
-* **Support:** No direct support is provided.
+* **Contributions:** Contributions are currently not accepted.
+* **Coding Standards:** No specific coding standards are enforced.
+* **Bug Reports:** Please use the Sentry feedback button to report issues.
+* **Support:** Support is currently not provided.
 * **License:** MIT
 
 ## Optional Sections
 
 * **Screenshots:**
-  * ![Pitch It Home Page](/pitchit-home.png)
+
+    * ![Pitch It Home Page](/pitchit-home.png)
+
 * **Credits/Acknowledgments:**
-  * [https://www.youtube.com/c/JavaScriptMastery](https://www.youtube.com/c/JavaScriptMastery)
 
-## Important Notes
+    * [https://www.youtube.com/c/JavaScriptMastery](https://www.youtube.com/c/JavaScriptMastery)
 
-* Remember to fill in the environment variables with your actual keys and tokens.
-* Kindly star the project if you find it useful.
+**Important Notes:**
+
+* Ensure you have Node.js and npm installed.
+* The `.env.local` file should be created in the root of your project.
+* Replace the placeholder values for the environment variables with your actual credentials.
+* Place the "pitchit-home.png" file in the public folder of your project.
